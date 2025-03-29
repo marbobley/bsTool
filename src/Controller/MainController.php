@@ -14,16 +14,31 @@ final class MainController extends AbstractController
 
         $passwordApi = $this->getParameter('app.passwordapi');
 
+        $httpClient = new \Http\Adapter\Guzzle7\Client();
+        $openMeteo = new \PhpWeather\Provider\OpenMeteo\OpenMeteo($httpClient);
 
-        /*$api = new \potibm\Bluesky\BlueskyApi('marbobley.bsky.social', '$passwordApi');
+        // search on map : 47.873, 8.004.
+        /*$latitude = 43.688371;
+        $longitude = 3.579329;*/
+
+        
+        $latitude = 48.866667;
+        $longitude = 2.333333;        
+
+        $currentWeatherQuery = \PhpWeather\Common\WeatherQuery::create($latitude, $longitude);
+        $currentWeather = $openMeteo->getCurrentWeather($currentWeatherQuery);
+
+        $meteoString = sprintf("Temperature à Paris : %u C° , vent : %u km/h", $currentWeather->getTemperature() , $currentWeather->getWindSpeed());
+
+        $api = new \potibm\Bluesky\BlueskyApi('marbobley.bsky.social', $passwordApi);
         $postService = new \potibm\Bluesky\BlueskyPostService($api);
-        $post = \potibm\Bluesky\Feed\Post::create('✨ example mentioning @atproto.com to share the URL 👨‍❤️‍👨 https://en.wikipedia.org/wiki/CBOR.');
-        $response = $api->createRecord($post);*/
+        $post = \potibm\Bluesky\Feed\Post::create($meteoString);
+        $response = $api->createRecord($post);
 
 
         return $this->render('main/index.html.twig', [
             'controller_name' => 'MainController',
-            'passwordApi' => $passwordApi,
+            'currentWeather' => $currentWeather,
         ]);
     }
 }
