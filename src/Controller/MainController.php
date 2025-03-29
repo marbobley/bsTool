@@ -30,7 +30,7 @@ final class MainController extends AbstractController
 
         $meteoString = sprintf("Temperature à Paris : %u C° , vent : %u km/h", $currentWeather->getTemperature() , $currentWeather->getWindSpeed());
 
-        $api = new \potibm\Bluesky\BlueskyApi('marbobley.bsky.social', $passwordApi);
+        $api = new \potibm\Bluesky\BlueskyApi('meteosymfony.bsky.social', $passwordApi);
         $postService = new \potibm\Bluesky\BlueskyPostService($api);
         $post = \potibm\Bluesky\Feed\Post::create($meteoString);
         $response = $api->createRecord($post);
