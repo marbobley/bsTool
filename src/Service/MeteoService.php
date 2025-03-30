@@ -17,6 +17,6 @@ class MeteoService{
         $currentWeatherQuery = \PhpWeather\Common\WeatherQuery::create($latitude, $longitude);
         $currentWeather = $openMeteo->getCurrentWeather($currentWeatherQuery);
 
-        return sprintf("Temperature à Paris : %u C° , vent : %u km/h", $currentWeather->getTemperature() , $currentWeather->getWindSpeed());
+        return sprintf("%u C° , vent : %u km/h", $currentWeather->getTemperature() , $currentWeather->getWindSpeed());
     }
 }
