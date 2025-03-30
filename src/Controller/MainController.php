@@ -18,25 +18,22 @@ final class MainController extends AbstractController
     #[Route('/', name: 'app_main')]
     public function index(MessageBusInterface $bus): Response
     {
-        $jsonPath = $this->getParameter('app.jsonpath');
+        /*$jsonPath = $this->getParameter('app.jsonpath');
 
         $cityJson = CityService::ReadCityJson($jsonPath);
         $cities = CityService::JsonToCities($cityJson);
 
-        $city_1 = $cities->cities[0];
-        $city_2 = $cities->cities[1];
-        $city_3 = $cities->cities[2];
+        $city_1 = $cities->cities[array_rand($cities->cities)];
 
-        $meteoString_1 = MeteoService::GetMeteo($city_1["latitude"],$city_1["longitude"]);
-        $meteoString_2 = MeteoService::GetMeteo($city_2["latitude"],$city_2["longitude"]);
-        $meteoString_3 = MeteoService::GetMeteo($city_3["latitude"],$city_3["longitude"]);
+        $lattitude = $city_1["latitude"];
+        $longitude = $city_1["longitude"];
 
-        $meteoCities = 
-        $city_1["label"] . " : " . $meteoString_1 .
-        $city_2["label"] . " : " . $meteoString_2 .
-        $city_3["label"] . " : " . $meteoString_3 ;
+        $meteoString = MeteoService::GetMeteo($lattitude,$longitude);
 
-        /*$bus->dispatch(new SendMeteo());*/
+        $finalString = $city_1["label"] . " : " . $meteoString;*/
+
+
+        $bus->dispatch(new SendMeteo());
 
        /* $passwordApi = $this->getParameter('app.passwordapi');
         
@@ -50,7 +47,7 @@ final class MainController extends AbstractController
 
         return $this->render('main/index.html.twig', [
             'controller_name' => 'MainController',
-            'meteoCities' => $meteoCities,
+            'meteoCities' => "C'est peut être parti ou non",
         ]);
     }
 }
