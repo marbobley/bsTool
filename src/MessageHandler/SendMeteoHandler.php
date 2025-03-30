@@ -14,38 +14,36 @@ use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 final class SendMeteoHandler
 {
     private CityService $cityServer ;
-    private Cities $cities ;
     private SerializerJsonService $serializerJson ;
 
-    public function __construct(SerializerJsonService $serializerJson)
-    {
-        $this->$serializerJson = $serializerJson;
+    public function __construct(
+        private CityService $cityService,
+        private BlueService $blueService,
+        private MeteoService $meteoService
 
-       // $this->cityServer = new CityService();
-        //$this->cities = $this->cityServer->getCities($_ENV['JSON_PATH']);
+    )
+    {
+        
     }
 
     public function __invoke(SendMeteo $message): void
     {
-        $jsonPath = $_ENV['JSON_PATH'];
+        $cities = $this->cityService->getCities();
 
-        $serviceCity = new CityService($this->serializerJson);
+        $city_1 = $cities->cities[array_rand( $cities->cities)];
 
-        $cities = $serviceCity->getCities();
+        $latitude = $city_1->latitude;
+        $longitude = $city_1->longitude;
 
-        $city_1 = $this->cities->cities[array_rand( $this->cities->cities)];
+         $meteoString = MeteoService::GetMeteo($latitude,$longitude);
 
-        $latitude = $city_1["latitude"];
-        $longitude = $city_1["longitude"];
-
-        $meteoString = MeteoService::GetMeteo($latitude,$longitude);
-
-        $finalString = $city_1["label"] . " : " . $meteoString;
+        $finalString = $city_1->label . " : " . $meteoString;
 
         // do something with your message
+        ///Passer le paramètre via le service
         $passwordApi = $_ENV['PASSWORD_API'];
 
-        BlueService::SendMessage($finalString, 'meteosymfony.bsky.social' , $passwordApi );
+        BlueService::SendMessage($finalString, 'meteosymfony.bsky.social' , $passwordApi );/**/
 
     }
 }

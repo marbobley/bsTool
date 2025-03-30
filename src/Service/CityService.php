@@ -11,15 +11,19 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 class CityService 
 {
-    private Cities $cities ;
+    private ?Cities $cities = null; 
 
-    public function __construct(SerializerJsonService $serializer)
+    public function __construct(private SerializerJsonService $serializer)
     {        
-        $this->cities = $serializer->GetCity($_ENV['JSON_PATH']);
+
     }
     
     public function getCities() : Cities
     {
+        if($this->cities === null)
+        {
+            $this->cities = $this->serializer->GetCity($_ENV['JSON_PATH']);
+        }
         return $this->cities;
     }
 }

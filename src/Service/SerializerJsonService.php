@@ -3,37 +3,37 @@
 namespace App\Service;
 
 use App\Model\Cities;
-use App\Model\City;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Serializer\Serializer;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class SerializerJsonService 
 {
-    private $encoders = null;
-    private $normalizers = null;
-    private Serializer $serializer ;
     private string $jsonPath ;
+    private Cities $cities;
     
-    public function __construct()
+    public function __construct(
+        private SerializerInterface $serializer , 
+        private Filesystem $filesystem)
     {
-        $this->encoders = [new JsonEncoder()];
-        $this->normalizers = [new ObjectNormalizer()];
-        $this->serializer = new Serializer($this->normalizers, $this->encoders);        
+          
     }
 
     public function GetCity(string $jsonPath): Cities
     {
-        $jsonData = self::ReadCityJson($jsonPath);        
+        $jsonData = $this->ReadCityJson($jsonPath);         
         return $this->serializer->deserialize($jsonData, Cities::class, 'json');
     }
 
-
-    public static function ReadCityJson(string $jsonPath)
+    public function GetStringCity(string $jsonPath): string
     {
-        $filesystem = new Filesystem();
-        $json = $filesystem->readFile($jsonPath);
+        $jsonData = $this->ReadCityJson($jsonPath);         
+        return $jsonData;//$this->serializer->deserialize($jsonData, Cities::class, 'json');
+    }
+
+
+    private function ReadCityJson(string $jsonPath)
+    {
+        $json = $this->filesystem->readFile($jsonPath);
         return $json;
     }
     

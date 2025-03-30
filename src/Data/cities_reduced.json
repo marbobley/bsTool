@@ -1,0 +1,28 @@
+{
+    "cities": [
+        {
+            "insee_code": "25620",
+            "city_code": "ville du pont",
+            "zip_code": "25650",
+            "label": "ville du pont",
+            "latitude": "46.999873398",
+            "longitude": "6.498147193",
+            "department_name": "doubs",
+            "department_number": "25",
+            "region_name": "bourgogne-franche-comt\u00e9",
+            "region_geojson_name": "Bourgogne-Franche-Comt\u00e9"
+        },
+        {
+            "insee_code": "25624",
+            "city_code": "villers grelot",
+            "zip_code": "25640",
+            "label": "villers grelot",
+            "latitude": "47.361512085",
+            "longitude": "6.235167025",
+            "department_name": "doubs",
+            "department_number": "25",
+            "region_name": "bourgogne-franche-comt\u00e9",
+            "region_geojson_name": "Bourgogne-Franche-Comt\u00e9"
+        }
+    ]
+}

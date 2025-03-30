@@ -8,6 +8,7 @@ use App\Model\City;
 use App\Service\BlueService;
 use App\Service\CityService;
 use App\Service\MeteoService;
+use App\Service\SerializerJsonService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -18,6 +19,17 @@ final class MainController extends AbstractController
     #[Route('/', name: 'app_main')]
     public function index(MessageBusInterface $bus): Response
     {
+     //   $cities = $cityService->getCities();
+
+       // $meteoService->GetMeteo($c)
+
+        //$jsonPath = $this->getParameter('app.jsonpath');
+        //$cityString = $serializerJsonService->GetCity($jsonPath);
+
+        /*
+        $cites = $serializerJsonService->GetCity($jsonPath);/**/
+
+
         /*$jsonPath = $this->getParameter('app.jsonpath');
 
         $cityJson = CityService::ReadCityJson($jsonPath);
@@ -33,7 +45,7 @@ final class MainController extends AbstractController
         $finalString = $city_1["label"] . " : " . $meteoString;*/
 
 
-        $bus->dispatch(new SendMeteo());
+        $bus->dispatch(new SendMeteo());/**/
 
        /* $passwordApi = $this->getParameter('app.passwordapi');
         
@@ -47,7 +59,7 @@ final class MainController extends AbstractController
 
         return $this->render('main/index.html.twig', [
             'controller_name' => 'MainController',
-            'meteoCities' => "C'est peut être parti ou non",
+            'meteoCities' => "parti ou pas",
         ]);
     }
 }
