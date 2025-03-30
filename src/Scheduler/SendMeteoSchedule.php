@@ -2,6 +2,7 @@
 
 namespace App\Scheduler;
 
+use App\Message\SendMeteo;
 use Symfony\Component\Scheduler\Attribute\AsSchedule;
 use Symfony\Component\Scheduler\RecurringMessage;
 use Symfony\Component\Scheduler\Schedule;
@@ -20,8 +21,7 @@ final class SendMeteoSchedule implements ScheduleProviderInterface
     {
         return (new Schedule())
             ->add(
-                // @TODO - Create a Message to schedule
-                // RecurringMessage::every('1 hour', new App\Message\Message()),
+                RecurringMessage::every('10 seconds', new SendMeteo())
             )
             ->stateful($this->cache)
         ;

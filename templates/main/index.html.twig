@@ -10,17 +10,6 @@
 
 <div class="example-wrapper">
     <h1>Hello {{ controller_name }}! ✅</h1>
-    currentWeather : 
-    <ul>
-        <li> Temperature : {{ currentWeather.temperature }}</li>
-        <li> Vitesse vent : {{ currentWeather.windSpeed }} km/h dans le sens {{ currentWeather.windDirection}}°</li>
-        <li> Humidité : {{ currentWeather.humidity }}</li>
-        <li> Ressenti : {{ currentWeather.feelsLike }}</li>
-        <li> Rosé : {{ currentWeather.dewPoint }}</li>
-        <li> Pression : {{ currentWeather.pressure }}</li>
-        <li> Precipitation : {{ currentWeather.precipitation }}</li>
-        <li> Nuage : {{ currentWeather.cloudCover }}</li>
-        <li> Code méteo : {{ currentWeather.weathercode }}</li>
-    </ul> 
+    currentWeather : {{ meteoString }}
 </div>
 {% endblock %}
