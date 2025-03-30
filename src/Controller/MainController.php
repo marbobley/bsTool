@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Message\SendMeteo;
 use App\MessageHandler\SendMeteoHandler;
 use App\Service\BlueService;
+use App\Service\CityService;
 use App\Service\MeteoService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,8 +17,14 @@ final class MainController extends AbstractController
     #[Route('/', name: 'app_main')]
     public function index(MessageBusInterface $bus): Response
     {
+        $jsonPath = $this->getParameter('app.jsonpath');
 
-        $bus->dispatch(new SendMeteo());
+
+        $cityJson = CityService::ReadCityJson($jsonPath);
+
+        $cities = CityService::JsonToCities($cityJson);
+
+        /*$bus->dispatch(new SendMeteo());*/
 
        /* $passwordApi = $this->getParameter('app.passwordapi');
         
@@ -31,7 +38,7 @@ final class MainController extends AbstractController
 
         return $this->render('main/index.html.twig', [
             'controller_name' => 'MainController',
-            'meteoString' => 'meteo',
+            'cities' => $cities->cities,
         ]);
     }
 }
