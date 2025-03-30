@@ -11,20 +11,15 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 class CityService 
 {
-    public static function ReadCityJson(string $jsonPath)
-    {
-        $filesystem = new Filesystem();
+    private Cities $cities ;
 
-        $json = $filesystem->readFile($jsonPath);
-
-        return $json;
+    public function __construct(SerializerJsonService $serializer)
+    {        
+        $this->cities = $serializer->GetCity($_ENV['JSON_PATH']);
     }
-
-    public static function JsonToCities(string $jsonData)
+    
+    public function getCities() : Cities
     {
-        $encoders = [new JsonEncoder()];
-        $normalizers = [new ObjectNormalizer()];
-        $serializer = new Serializer($normalizers, $encoders);
-        return $serializer->deserialize($jsonData, Cities::class, 'json');
+        return $this->cities;
     }
 }
