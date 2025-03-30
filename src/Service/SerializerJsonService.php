@@ -24,13 +24,6 @@ class SerializerJsonService
         return $this->serializer->deserialize($jsonData, Cities::class, 'json');
     }
 
-    public function GetStringCity(string $jsonPath): string
-    {
-        $jsonData = $this->ReadCityJson($jsonPath);         
-        return $jsonData;//$this->serializer->deserialize($jsonData, Cities::class, 'json');
-    }
-
-
     private function ReadCityJson(string $jsonPath)
     {
         $json = $this->filesystem->readFile($jsonPath);
