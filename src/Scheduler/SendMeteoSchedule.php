@@ -21,7 +21,7 @@ final class SendMeteoSchedule implements ScheduleProviderInterface
     {
         return (new Schedule())
             ->add(
-                RecurringMessage::every('120 seconds', new SendMeteo())
+                RecurringMessage::every('3600 seconds', new SendMeteo())
             )
             ->stateful($this->cache)
         ;
