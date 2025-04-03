@@ -2,13 +2,7 @@
 
 namespace App\Controller;
 
-use App\Message\SendMeteo;
-use App\MessageHandler\SendMeteoHandler;
-use App\Model\City;
 use App\Service\BlueService;
-use App\Service\CityService;
-use App\Service\MeteoService;
-use App\Service\SerializerJsonService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -16,50 +10,29 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class MainController extends AbstractController
 {
+
     #[Route('/', name: 'app_main')]
-    public function index(MessageBusInterface $bus): Response
+    public function index(MessageBusInterface $bus, BlueService $blueService): Response
     {
-     //   $cities = $cityService->getCities();
-
-       // $meteoService->GetMeteo($c)
-
-        //$jsonPath = $this->getParameter('app.jsonpath');
-        //$cityString = $serializerJsonService->GetCity($jsonPath);
-
-        /*
-        $cites = $serializerJsonService->GetCity($jsonPath);/**/
-
-
-        /*$jsonPath = $this->getParameter('app.jsonpath');
-
-        $cityJson = CityService::ReadCityJson($jsonPath);
-        $cities = CityService::JsonToCities($cityJson);
-
-        $city_1 = $cities->cities[array_rand($cities->cities)];
-
-        $lattitude = $city_1["latitude"];
-        $longitude = $city_1["longitude"];
-
-        $meteoString = MeteoService::GetMeteo($lattitude,$longitude);
-
-        $finalString = $city_1["label"] . " : " . $meteoString;*/
-
-
-        $bus->dispatch(new SendMeteo());/**/
-
-       /* $passwordApi = $this->getParameter('app.passwordapi');
-        
-        $latitude = 48.866667;
-        $longitude = 2.333333;    
-
-
-        $meteoString = MeteoService::GetMeteo($latitude,$longitude);
-
-        BlueService::SendMessage($meteoString, 'meteosymfony.bsky.social' , $passwordApi );*/
+        $passwordApi = $_ENV['PASSWORD_API']; ;
+        //BlueService::SendMessage($finalString,  , $passwordApi );/**/
+        //$response = $blueService->SendMessage("Hello" ,'meteosymfony.bsky.social',$passwordApi );
+/** 
+        cid : bafyreiaju2ej7zoeio3hoxukkpbl73j2er3rtyor3dphjlojpsuhq6665i
+        uri : at://did:plc:p4eaqlry6f26os5aem25wuqb/app.bsky.feed.post/3llrm3sc3x52b
+        did : did:plc:p4eaqlry6f26os5aem25wuqb
+        ndis:app.bsky.feed.post
+        3llrm3sc3x52b
+**/
+$blueService->AddMessage("", "Salute1");
+/*$blueService->AddMessage($response->getUri(), "Salute1");
+$blueService->QuoteMessage($response->getUri(), "Salute2");*/
 
         return $this->render('main/index.html.twig', [
             'controller_name' => 'MainController',
-            'meteoCities' => "parti ou pas",
+            /*'cid' => $response->getCid(),
+            'uriblue' => $response->getUri(),*/
         ]);
     }
+
 }
