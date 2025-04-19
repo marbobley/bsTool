@@ -39,11 +39,8 @@ final class SendMeteoHandler
 
         $finalString = $city_1->label . " : " . $meteoString;
 
-        // do something with your message
-        ///Passer le paramètre via le service
-        $passwordApi = $_ENV['PASSWORD_API'];
 
-        $this->blueService->SendMessage($finalString, 'meteosymfony.bsky.social' , $passwordApi );/**/
+        $this->blueService->SendMessage($finalString );/**/
 
     }
 }
